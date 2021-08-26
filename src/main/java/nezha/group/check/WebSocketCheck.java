@@ -2,13 +2,9 @@ package nezha.group.check;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Iterator;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.java_websocket.WebSocket;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 

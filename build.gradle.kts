@@ -19,4 +19,5 @@ dependencies {
     implementation("org.java-websocket:Java-WebSocket:1.5.2")
     implementation("com.squareup.okhttp3:okhttp:4.9.1")
     implementation("com.alibaba:fastjson:1.2.78")
+    implementation("org.xerial:sqlite-jdbc:3.36.0.1")
 }

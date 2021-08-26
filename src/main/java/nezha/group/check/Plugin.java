@@ -41,6 +41,12 @@ public final class Plugin extends JavaPlugin {
                     event.reject(false, "监控链接不能为空！");
                 getLogger().info(Answer);
                 // 简单处理链接
+                String Host = Answer.replace("https://", "").replace("http://", "").replace("/", "");
+                SQData sq = new SQData();
+                if (sq.isExist(Host)) {
+                    event.reject(false, "此链接已被使用过！");
+                    return;
+                }
                 if (!Answer.startsWith("https://") && !Answer.startsWith("http://"))
                     if (Answer.startsWith("http")) {
                         event.reject(false, "链接格式错误！");
@@ -91,6 +97,7 @@ public final class Plugin extends JavaPlugin {
                     return;
                 } else {
                     getLogger().info(String.valueOf(ws_check));
+                    sq.InSert(event.getFromId(), Host);
                     event.accept();
                 }
             }
