@@ -41,7 +41,7 @@ public final class Plugin extends JavaPlugin {
                     event.reject(false, "监控链接不能为空！");
                 getLogger().info(Answer);
                 // 简单处理链接
-                String Host = Answer.replace("https://", "").replace("http://", "").replace("/", "");
+                String Host = Answer.replace("https://", "").replace("http://", "").replace("/", "").toLowerCase();
                 SQData sq = new SQData();
                 if (sq.isExist(Host)) {
                     event.reject(false, "此链接已被使用过！");
@@ -69,11 +69,12 @@ public final class Plugin extends JavaPlugin {
                         event.reject(false, "无法访问，请检查是否关闭防火墙。");
                         return;
                     }
-                    if (Objects.requireNonNull(response.body()).string().contains("验证查看密码")) {
+                    String OkBody = Objects.requireNonNull(response.body()).string();
+                    if (OkBody.contains("验证查看密码")) {
                         event.reject(false, "请关闭密码验证。");
                         return;
                     }
-                    if (!Objects.requireNonNull(response.body()).string().contains("naiba")) {
+                    if (!OkBody.contains("naiba")) {
                         event.reject(false, "无法确认哪吒面板，请不要删除版权信息或开启防火墙");
                         return;
                     }
