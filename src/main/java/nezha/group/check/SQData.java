@@ -3,17 +3,24 @@ package nezha.group.check;
 import java.sql.*;
 
 public class SQData {
-    private Connection conn;
+    private Connection conn = null;
 
     public void connect() {
-        if (conn != null) {
+        if (this.conn != null) {
             return;
         }
         try {
             // db parameters
-            String url = "jdbc:sqlite:D:\\project\\nezha-group-check\\data.db";
+            try {
+                Class.forName("org.sqlite.JDBC");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            String url = "jdbc:sqlite:/opt/mcl/nezhacheck/data.db";
             // create a connection to the database
-            conn = DriverManager.getConnection(url);
+            this.conn = DriverManager.getConnection(url);
+            if (conn == null)
+                throw new SQLException("SQLITE连接未建立");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -36,6 +43,7 @@ public class SQData {
 
     public Boolean isExist(String host) {
         this.connect();
+
         try {
             String query = "SELECT EXISTS (SELECT 1 FROM groupcheck WHERE HOST = ?)";
             PreparedStatement pst = conn.prepareStatement(query);

@@ -104,6 +104,9 @@ public final class Plugin extends JavaPlugin {
             }
             getLogger().info(event.getMessage());
         });
+        if (new SQData().isExist("ops.naibahq.com"))
+            getLogger().info("SQLite正常");
+        else getLogger().error("SQLite错误");
         getLogger().info("Plugin loaded!");
     }
 
