@@ -43,7 +43,7 @@ public class WebSocketCheck extends WebSocketClient {
 
     @Override
     public void onError(Exception e) {
-
+        e.printStackTrace();
     }
 
     public int check() {

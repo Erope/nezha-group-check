@@ -87,6 +87,10 @@ public final class Plugin extends JavaPlugin {
                 int ws_check = -1;
                 try {
                     ws_check = new WebSocketCheck(Answer).check();
+                    if (ws_check == -1 && Answer.startsWith("ws://")) {
+                        Answer = Answer.replace("ws://", "wss://");
+                        ws_check = new WebSocketCheck(Answer).check();
+                    }
                 } catch (Exception e) {
                     //e.printStackTrace();
                 }
@@ -104,6 +108,7 @@ public final class Plugin extends JavaPlugin {
             }
             getLogger().info(event.getMessage());
         });
+
         if (new SQData().isExist("ops.naibahq.com"))
             getLogger().info("SQLite正常");
         else getLogger().error("SQLite错误");
